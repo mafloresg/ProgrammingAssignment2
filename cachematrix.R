@@ -2,43 +2,46 @@
 ## its inverse and caches it to reuse it.
 
 ## This function creates a special "matrix" object that can cache its inverse.
+## theMatrix is a square matrix (NxN)
+## Returns an object with the matrix and some functions used to set and get the data and the mean
+
 makeCacheMatrix <- function(theMatrix = matrix()) {
     
-    theMean <- NULL
+    theInverse <- NULL
     
     set <- function(matrixToCalc) {
         theMatrix <<- matrixToCalc
-        theMean <<- NULL
+        theInverse <<- NULL
     }
     
     get <- function() {
         theMatrix
     }
     
-    setmean <- function(meanToSet) {
-        theMean <<- meanToSet
+    setInverse <- function(meanToSet) {
+        theInverse <<- meanToSet
     }
     
-    getmean <- function(){
-        theMean  
+    getInverse <- function(){
+        theInverse  
     } 
     
     list(set = set, get = get,
-         setmean = setmean,
-         getmean = getmean)
+         setInverse = setInverse,
+         getInverse = getInverse)
 }
 
 
 ## Return a matrix that is the inverse of 'x'
 ## In case the inverse is already calculated, it returns the cached inverse
 cacheSolve <- function(theMatrix, ...) {
-    theMean <- theMatrix$getmean()
-    if(!is.null(theMean)) {
-        message("the mean is already calculated and the cache will be returned")
-        return(theMean)
+    theInverse <- theMatrix$getInverse()
+    if(!is.null(theInverse)) {
+        message("the inverse is already calculated and the cache will be returned")
+        return(theInverse)
     }
     data <- theMatrix$get()
-    theMean <- solve(data, ...)
-    theMatrix$setmean(theMean)
-    theMean
+    theInverse <- solve(data)
+    theMatrix$setInverse(theInverse)
+    theInverse
 }
