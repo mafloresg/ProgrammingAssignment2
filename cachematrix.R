@@ -1,5 +1,5 @@
-## A pair of functions that creates a special type of matrix that can save its inverse 
-## and calculates the inverse of the matrix.
+## A pair of functions that creates a special type of matrix, calculate
+## its inverse and caches it to reuse it.
 
 ## This function creates a special "matrix" object that can cache its inverse.
 makeCacheMatrix <- function(theMatrix = matrix()) {
